@@ -47,6 +47,14 @@ userSchema.pre('save', function(next) {
   });
 });
 
+userSchema.pre('remove', function(next) {
+  Post.remove({user_id: this._id}).exec();
+  Comment.remove({user_id: this._id}).exec();
+  next();
+});
+
+
+
 userSchema.statics.authenticate = function (formData, callback) {
   this.findOne({
     email: formData.email
