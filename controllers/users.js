@@ -36,3 +36,10 @@ app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
+
+app.get('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
+  db.User.findById(req.params.id, function(err, user) {
+    if (err) throw err;
+    res.render('users/index', {user: user});
+  });
+});
