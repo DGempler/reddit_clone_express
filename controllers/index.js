@@ -1,19 +1,5 @@
 var db = require('../models/index');
 
-app.get('/', function (req, res){
-  db.Post.find({}, function(err, posts) {
-    if (err) throw err;
-    if (req.session.id) {
-      db.User.findById(req.session.id, function(err, user) {
-        if (err) throw err;
-          res.render('index', {posts: posts, user: user});
-      });
-    }
-    else {
-      res.render('index', {posts: posts});
-    }
-  });
-});
 
 var loginMiddleware = require('../middleware/loginHelper.js');
 
@@ -31,6 +17,22 @@ app.use(function(req, res, next) {
     res.locals.user = null;
     next();
   }
+});
+
+app.get('/', function (req, res){
+  db.Post.find({}, function(err, posts) {
+    if (err) throw err;
+    /*
+    if (req.session.id) {
+      db.User.findById(req.session.id, function(err, user) {
+        if (err) throw err;
+          res.render('index', {posts: posts, user: user});
+      });
+    }
+    else {*/
+      res.render('index', {posts: posts, user: res.locals.user});
+    // }
+  });
 });
 
 require('./users');
