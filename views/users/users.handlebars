@@ -1,0 +1,12 @@
+<h1>Check out all of our users!</a></h1>
+<br />
+<br />
+<ul>
+{{#each users}}
+  <li>
+    <h5>{{this.userName}}</h5>
+    <a href="/users/{{this._id}}/posts">see Posts</a>
+    <a href="/users/{{this._id}}/comments">See Comments</a>
+  </li>
+  {{/each}}
+</ul>
