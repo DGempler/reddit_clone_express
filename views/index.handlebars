@@ -1,0 +1,14 @@
+<h1>Welcome to UREDDIT</h1>
+<br />
+<br />
+<h3>Posts:</h3> <br />
+<ul>
+{{#each posts}}
+  <li>
+    <h5>{{this.title}}</h5>
+    <p>{{this.body}}</p><br />
+    <a href="/users/{{this.author}}">{{this.author}}</a>
+    <a href="/posts/{{this._id}}/comments">See Comments</a>
+  </li>
+  {{/each}}
+</ul>
