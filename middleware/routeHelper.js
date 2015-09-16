@@ -10,18 +10,18 @@ var routeHelpers = {
   };
 
   ensureCorrectUserPost: function (req, res, next) {
-    db.Post.findById(req.params.id, function (err, data){
-      if (data.ownerId !== req.session.id) {
-        res.redirect('');
+    db.Post.findById(req.params.id, function (err, post){
+      if (post.user !== req.session.id) {
+        res.redirect('/login');
       } else {
         return next();
       }
     });
   },
   ensureCorrectUserComment: function (req, res, next) {
-    db.Comment.findById(req.params.id, function (err, data){
-      if (data.ownerId !== req.session.id) {
-        res.redirect('');
+    db.Comment.findById(req.params.id, function (err, comment){
+      if (comment.user !== req.session.id) {
+        res.redirect('/login');
       } else {
         return next();
       }
@@ -30,10 +30,12 @@ var routeHelpers = {
 
   preventLoginSignup: function(req, res, next) {
     if (req.session.id !== null && req.session.id !== undefined) {
-      res.redirect('');
+      res.redirect('/users/' + req.session.id);
     }
     else {
      return next();
     }
   }
 }
+
+module.exports = routeHelpers;
