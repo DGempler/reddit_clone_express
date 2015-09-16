@@ -7,7 +7,7 @@ var routeHelpers = {
     } else {
       res.redirect('/login');
     }
-  };
+  },
 
   ensureCorrectUserPost: function (req, res, next) {
     db.Post.findById(req.params.id, function (err, post){
