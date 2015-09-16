@@ -12,7 +12,26 @@ app.post('/signup', function (req, res) {
       res.redirect('/signup');
     } else {
       req.login(user);
-      res.redirect('/index');
+      res.redirect('/');
     }
   });
+
+app.get('/login', routeMiddleware.preventLoginSignup, function (req, res){
+  res.render('users/login');
+});
+
+app.post('/login', routeMiddleware.ensureLoggedIn, function (req, res){
+  db.User.authenticate(req.body.user, function (err, user){
+    if (!err && user !== null) {
+      req.login(user);
+      res.redirect('/')
+    } else {
+      res.redirect('users/login');
+    }
+  });
+});
+
+app.get('/logout', function (req, res){
+  req.logout();
+  res.redirect('/');
 });
