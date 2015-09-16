@@ -1,5 +1,5 @@
 app.get('/', function (req, res){
-  res.render('/index');
+  res.render('index');
 });
 
 var loginMiddleware = require('../middleware/loginHelper.js');
