@@ -36,6 +36,6 @@ var routeHelpers = {
      return next();
     }
   }
-}
+};
 
 module.exports = routeHelpers;
