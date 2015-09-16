@@ -3,8 +3,10 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var db = require('./models');
 var exphbs = require('express-handlebars');
-var _ = require('underscore'); ?
-var morgan = require("morgan"); ?
+var morgan = require("morgan");
+var session = require('cookie-session')
+
+
 ​
 //creates global variable
 app = express();
@@ -16,6 +18,12 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 ​
+app.use(session({
+  maxAge: 3600000,
+  secret: "specialspecial",
+  name: "reddit-session"
+}));
+
 require('./controllers/index');
 ​
 
