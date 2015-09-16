@@ -5,12 +5,12 @@ var loginMiddleware = require('../middleware/loginHelper.js');
 
 app.use(loginMiddleware);
 
-// using locals - need to render somehow in handlebars???
+// using locals
 
 app.use(function(req, res, next) {
   if (req.session.id) {
     db.User.findById(req.session.id, function(err, user) {
-      res.local.user = user;
+      res.locals.user = user;
       next();
     });
   } else {
@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res){
   db.Post.find({}, function(err, posts) {
     if (err) throw err;
-    /*
+    /* old route pre-locals
     if (req.session.id) {
       db.User.findById(req.session.id, function(err, user) {
         if (err) throw err;
