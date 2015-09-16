@@ -19,6 +19,20 @@ var loginMiddleware = require('../middleware/loginHelper.js');
 
 app.use(loginMiddleware);
 
+// using locals - need to render somehow in handlebars???
+
+app.use(function(req, res, next) {
+  if (req.session.id) {
+    db.User.findById(req.session.id, function(err, user) {
+      res.local.user = user;
+      next();
+    });
+  } else {
+    res.locals.user = null;
+    next();
+  }
+});
+
 require('./users');
 require('./posts');
 require('./comments');
