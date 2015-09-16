@@ -1,6 +1,13 @@
 var db = require('../models/index.js');
 var routeMiddleware = require('../middleware/routeHelper.js');
 
+app.get('/users', function (req, res){
+  db.User.find( {}, function(err, users) {
+    if (err) throw err;
+      res.render('users/users', {users: users});
+  });
+});
+
 app.get('/signup', routeMiddleware.preventLoginSignup, function(req, res){
   res.render('users/signup');
 });

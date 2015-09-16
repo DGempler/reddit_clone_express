@@ -13,7 +13,6 @@ app.get('/', function (req, res){
       res.render('index', {posts: posts});
     }
   });
-
 });
 
 var loginMiddleware = require('../middleware/loginHelper.js');
