@@ -1,14 +1,21 @@
 <h1>Welcome to UREDDIT {{user.userName}}</h1>
+<a href="/users/{{user._id}}/edit">Edit My Login Info</a><br/>
+<form method="POST" action="/users/{{user._id}}?_method=delete">
+      <input type="submit" value="Delete My Account">
+</form>
 <br />
 <br />
 <h3>Your Posts:</h3> <br />
 <ul>
 {{#each user.posts}}
   <li>
-    <h5>{{this.title}}</h5>
+    <h5><a href="/posts/{{this._id}}">{{this.title}}</a></h5>
     <p>{{this.body}}</p><br />
-    <a href="/users/{{this.user}}">{{this.user}}</a>
-    <a href="/posts/{{this._id}}/comments">See Comments</a>
+    <a href="/posts/{{this._id}}/comments">See Comments</a><br />
+    <a href="/posts/{{this._id}}/edit">Edit Post</a><br/>
+    <form method="POST" action="/posts/{{this._id}}?_method=delete">
+      <input type="submit" value="Delete Post">
+    </form>
   </li>
   {{/each}}
 </ul>
@@ -17,7 +24,6 @@
 {{#each user.comments}}
   <li>
     <p>{{this.body}}</p><br />
-    <a href="/users/{{this.user}}">{{this.user}}</a>
   </li>
   {{/each}}
 </ul>
