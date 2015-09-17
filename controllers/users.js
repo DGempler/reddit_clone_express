@@ -74,7 +74,6 @@ app.put('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
       throw err;
     } else {
       user.checkPassword(req.body.password, function(err2, user2){
-        console.log(user2, "user2");
         if (user2) {
         user2.userName = req.body.user.userName;
         user2.email = req.body.user.email;
