@@ -22,7 +22,7 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
-//edit a form
+//edit a post
 app.put('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res){
   db.Post.findByIdAndUpdate(req.session.id, req.body.post, function(err, post) {
     if (err) throw err;
@@ -32,9 +32,15 @@ app.put('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res){
 });
 
 
-//delete a form
+//delete a post
 app.delete('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
-  db.Post.findById();
+  db.Post.findById(req.params.id, function(err, post) {
+    if (err) throw err;
+    post.remove(function(err2, post2) {
+      if (err2) throw err2;
+      res.redirect('/users/' + post2.user);
+    });
+  });
 });
 
 
