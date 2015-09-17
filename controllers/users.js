@@ -103,6 +103,7 @@ app.delete('/users/:id', function(req, res){
     if (err){
       throw err;
     } else {
+      req.logout();
       res.redirect('/users');
     }
   });
