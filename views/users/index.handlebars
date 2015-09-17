@@ -1,9 +1,5 @@
 <h1>Welcome to UREDDIT {{user.userName}}</h1>
-<a href="/users/{{user._id}}/edit">Edit My Login Info</a><br/>
-<form method="POST" action="/users/{{user._id}}?_method=delete">
-      <input type="submit" value="Delete My Account">
-</form>
-<a href="/users/{{user._id}}/edit">Edit your user profile</a><br />
+<a href="/users/{{user._id}}/edit">Edit/Delete your user profile</a><br />
 <br />
 <br />
 <h3>Your Posts:</h3> <br />
