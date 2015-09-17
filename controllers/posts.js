@@ -31,7 +31,6 @@ app.put('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res){
 
 });
 
-
 //delete a post
 app.delete('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.Post.findById(req.params.id, function(err, post) {
@@ -42,7 +41,6 @@ app.delete('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
     });
   });
 });
-
 
 //Show individual post
 app.get('/posts/:id', function(req, res) {

@@ -95,7 +95,6 @@ app.put('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
   });
 });
 
-
 //Deletes a user:
 app.delete('/users/:id', function(req, res){
   db.User.findById(req.params.id, function (err, user){

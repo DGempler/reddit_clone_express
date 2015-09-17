@@ -20,16 +20,7 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res){
   db.Post.find({}, function(err, posts) {
     if (err) throw err;
-    /* old route pre-locals
-    if (req.session.id) {
-      db.User.findById(req.session.id, function(err, user) {
-        if (err) throw err;
-          res.render('index', {posts: posts, user: user});
-      });
-    }
-    else {*/
-      res.render('index', {posts: posts, localsUser: res.locals.user});
-    // }
+    res.render('index', {posts: posts, localsUser: res.locals.user});
   });
 });
 
