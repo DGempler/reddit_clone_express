@@ -68,7 +68,6 @@ app.get('/users/:id/edit', routeMiddleware.ensureLoggedIn, function (req, res) {
 
 //Updates a user profile:
 app.put('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
-  console.log(req.body.user, "req.body.user");
   db.User.findById(req.params.id, function (err, user){
     if (err) {
       throw err;
@@ -99,12 +98,26 @@ app.put('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
 
 //Deletes a user:
 app.delete('/users/:id', function(req, res){
-   db.User.findByIdAndRemove(req.params.id, function (err, data){
-    if (err){
+  db.User.findById(req.params.id, function (err, user){
+    if (err) {
       throw err;
     } else {
-      req.logout();
-      res.redirect('/users');
+      user.checkPassword(req.body.password, function(err2, user2){
+        if (user2) {
+          db.User.findByIdAndRemove(req.params.id, function (err, data){
+          if (err){
+            throw err;
+          } else {
+            req.logout();
+            res.redirect('/');
+          }
+        });
+        } else {
+          console.log(err2);
+          req.logout();
+          res.redirect('/');
+        }
+      });
     }
   });
 });
