@@ -15,6 +15,7 @@
     {{#if localsUser}}
     <a href="/posts/new">Add a Post</a><br />
     <a href="/logout">Logout</a><br />
+    <a href="/users/{{localsUser._id}}">My profile</a>
     {{else}}
     <a href="/login">Login</a><br />
     <a href="/signup">Sign Up</a><br />
