@@ -2,12 +2,12 @@ var db = require('../models/index');
 var routeMiddleware = require('../middleware/routeHelper.js');
 
 //request for rendering a new post form
-app.get('/posts/new', function(req, res) {
+app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
   res.render('posts/new', {localsUser: res.locals.user});
 });
 
 //submitting a new form
-app.post('/posts', function(req, res) {
+app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.session.id, function(err, user) {
     if (err) throw err;
     db.Post.create(req.body.post, function(err, post) {
@@ -23,11 +23,19 @@ app.post('/posts', function(req, res) {
 });
 
 //edit a form
+app.put('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res){
+  db.Post.findByIdAndUpdate(req.session.id, req.body.post, function(err, post) {
+    if (err) throw err;
+    res.redirect('/posts/' + post._id);
+  });
 
+});
 
 
 //delete a form
-
+app.delete('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Post.findById();
+});
 
 
 //Show individual post
