@@ -29,16 +29,17 @@ app.post('/signup', function (req, res) {
 
 //Renders the login page:
 app.get('/login', routeMiddleware.preventLoginSignup, function (req, res){
-  res.render('users/login' {localsUser: res.locals.user});
+  res.render('users/login', {localsUser: res.locals.user});
 });
 
 //Authenticates user login and logs user in. Redirects to the index or to the login if fail:
-app.post('/login', routeMiddleware.ensureLoggedIn, function (req, res){
+app.post('/login', function (req, res){
   db.User.authenticate(req.body.user, function (err, user){
     if (!err && user !== null) {
       req.login(user);
       res.redirect('/');
     } else {
+      console.log(err);
       res.redirect('users/login');
     }
   });
