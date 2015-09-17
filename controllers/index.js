@@ -30,7 +30,7 @@ app.get('/', function (req, res){
       });
     }
     else {*/
-      res.render('index', {posts: posts, user: res.locals.user});
+      res.render('index', {posts: posts, localsUser: res.locals.user});
     // }
   });
 });

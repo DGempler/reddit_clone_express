@@ -1,0 +1,12 @@
+<h1>{{ user.userName }}'s Posts</h1>
+
+<ul>
+{{#each user.posts}}
+  <li>
+    <h5>{{this.title}}</h5>
+    <p>{{this.body}}</p><br />
+    <a href="/users/{{this.user}}">{{this.user}}</a>
+    <a href="/posts/{{this._id}}/comments">See Comments</a>
+  </li>
+  {{/each}}
+</ul>
