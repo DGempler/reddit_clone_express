@@ -1,0 +1,13 @@
+form
+{
+   width: 50%;
+   position:relative;
+}
+
+form label{
+  width: 100%;
+}
+
+label input {
+  width: 60%;
+}

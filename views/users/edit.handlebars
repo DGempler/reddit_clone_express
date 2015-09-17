@@ -1,0 +1,9 @@
+
+<form method="POST" action="/users/{{user._id}}?_method=PUT">
+  <h2>Edit a user profile here:</h2>
+  <label>User name: <input type="text" name="user[userName]" value="{{user.userName}}"/></label><br/>
+  <label>Email: <input type="text" name="user[email]"value="{{user.email}}"/></label><br/>
+  <label>Current Password: <input type="password" name="password" placeholder="Enter current password to update user info."/></label><br/>
+  <label>New Password: <input type="password" name="newPassword" placeholder="Enter new password if desired."/></label><br/>
+  <input type="submit" value="Edit" />
+</form>

@@ -26,7 +26,6 @@ app.post('/signup', function (req, res) {
     }
   });
 });
-
 //Renders the login page:
 app.get('/login', routeMiddleware.preventLoginSignup, function (req, res){
   res.render('users/login', {localsUser: res.locals.user});
@@ -68,16 +67,36 @@ app.get('/users/:id/edit', routeMiddleware.ensureLoggedIn, function (req, res) {
 });
 
 //Updates a user profile:
-app.put('users/:id/edit', routeMiddleware.ensureLoggedIn, function (req, res) {
-  db.User.findByIdAndUpdate(req.params.id, req.body.user, function (err, user){
-    if (err){
-      console.log(err);
-      res.redirect('/login');
+app.put('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
+  console.log(req.body.user, "req.body.user");
+  db.User.findById(req.params.id, function (err, user){
+    if (err) {
+      throw err;
     } else {
-      res.redirect('/');
+      user.checkPassword(req.body.password, function(err2, user2){
+        console.log(user2, "user2");
+        if (user2) {
+        user2.userName = req.body.user.userName;
+        user2.email = req.body.user.email;
+        if (req.body.newPassword.length > 0){
+          user2.password = req.body.newPassword;
+        }
+        user2.save(function(err3, user3){
+          if (err3){
+            throw err3;
+          } else {
+            res.redirect('/users/'+ user3._id);
+          }
+        });
+        } else {
+          console.log(err2);
+          res.redirect('users/login');
+        }
+      });
     }
   });
 });
+
 
 //Deletes a user:
 app.delete('/users/:id', function(req, res){
