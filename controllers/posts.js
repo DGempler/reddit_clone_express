@@ -23,13 +23,31 @@ app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   });
 });
 
+//get request for editing a post
+app.get('/posts/:id/edit', routeMiddleware.ensureLoggedIn, function(req, res) {
+  db.Post.findById(req.params.id, function(err, post) {
+    if (err) throw err;
+    console.log(post.user);
+    if (post.user === req.session.id) {
+      res.render('posts/edit', {localsUser: res.locals.user});
+    }
+    else {
+      res.redirect('/users/' + req.session.id);
+    }
+  });
+});
+
 //edit a post
 app.put('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res){
-  db.Post.findByIdAndUpdate(req.session.id, req.body.post, function(err, post) {
+  db.Post.findById(req.session.id, function(err, post) {
     if (err) throw err;
-    res.redirect('/posts/' + post._id);
+    if (post.user === req.session.id) {
+      post = req.body.post;
+      post.save(function(err2, post2) {
+        res.redirect('/posts/' + post2._id);
+      });
+    }
   });
-
 });
 
 //delete a post

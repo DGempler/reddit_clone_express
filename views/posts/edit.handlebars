@@ -1,0 +1,8 @@
+<h1>Edit Post</h1>
+<br />
+<br />
+<form method="POST" action="/posts/{{post._id}}?_method=put">
+  <label>Edit title: <input type="text" name="post[title]" value={{post.title}}></label>
+  <label>Edit body: <textarea rows="10" cols="50" name="post[body]" value={{post.body}}></textarea></label>
+  <input type="submit" value="Submit changes">
+</form>
