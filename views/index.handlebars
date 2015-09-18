@@ -7,7 +7,7 @@
   <li>
     <h5><a href="/posts/{{this._id}}">{{this.title}}</a></h5>
     <p>{{this.body}}</p><br />
-    <a href="/users/{{this.user}}">{{this.user}}</a>
+    <p>Submitted by <a href="/users/{{this.user}}">{{this.user.userName}}</a></p>
     <a href="/posts/{{this._id}}/comments">See Comments</a>
   </li>
   {{/each}}

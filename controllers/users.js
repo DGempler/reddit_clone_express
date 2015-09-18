@@ -52,7 +52,7 @@ app.get('/logout', routeMiddleware.ensureLoggedIn, function (req, res) {
 
 //Shows a logged in page of the user index
 app.get('/users/:id', routeMiddleware.ensureLoggedIn, function (req, res) {
-  db.User.findById(req.params.id, function(err, user) {
+  db.User.findById(req.params.id).populate('posts').populate('comments').exec(function(err, user) {
     if (err) throw err;
     res.render('users/index', {localsUser: res.locals.user, user: user});
   });

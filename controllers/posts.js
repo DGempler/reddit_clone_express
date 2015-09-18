@@ -6,14 +6,15 @@ app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res) {
   res.render('posts/new', {localsUser: res.locals.user});
 });
 
-//submitting a new form
+//submitting a new post
 app.post('/posts', routeMiddleware.ensureLoggedIn, function(req, res) {
   db.User.findById(req.session.id, function(err, user) {
     if (err) throw err;
     db.Post.create(req.body.post, function(err, post) {
       if (err) throw err;
       user.posts.push(post);
-      post.author = user;
+      post.user = user._id;
+      post.userName = user.userName;
       user.save();
       post.save(function(err, post2) {
         res.redirect('/posts/' + post2._id);
@@ -48,7 +49,11 @@ app.delete('/posts/:id', routeMiddleware.ensureLoggedIn, function(req, res) {
 app.get('/posts/:id', function(req, res) {
   db.Post.findById(req.params.id).populate('user').populate('comments').exec(function(err, post) {
     if (err) throw err;
-    res.render('posts/index', {post: post, localsUser: res.locals.user});
+    var isUsers = null;
+    if (post.user && req.session.id == post.user._id){
+      isUsers = true;
+    }
+    res.render('posts/index', {post: post, localsUser: res.locals.user, isUsers: isUsers});
   });
 });
 

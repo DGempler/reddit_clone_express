@@ -3,7 +3,17 @@
   <li>
     <h5>{{post.title}}</h5>
     <p>{{post.body}}</p><br />
-    <a href="/users/{{post.user}}">{{post.user}}</a>
+    {{#if post.user}}
+    <a href="/users/{{post.user._id}}">{{post.user.userName}}</a>
+    {{else}}
+    <p>Original poster's user account has been deleted</p>
+    {{/if}}
     <a href="/posts/{{post._id}}/comments">See Comments</a>
+    {{#if isUsers}}
+    <a href="/posts/{{post._id}}/edit">Edit this post</a><br />
+    <form method="POST" action="/posts/{{post._id}}?_method=DELETE">
+      <input type="submit" value="Delete" />
+    </form>
+    {{/if}}
   </li>
 </ul>
