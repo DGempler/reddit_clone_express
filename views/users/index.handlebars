@@ -1,22 +1,36 @@
+{{#if isMatch}}
 <h1>Welcome to UREDDIT {{user.userName}}</h1>
 <a href="/users/{{user._id}}/edit">Edit/Delete your user profile</a><br />
+{{else}}
+<h1>{{user.userName}}'s Profile</h1>
+{{/if}}
 <br />
 <br />
+{{#if isMatch}}
 <h3>Your Posts:</h3> <br />
+{{else}}
+<h3>{{user.userName}}'s Posts:</h3> <br />
+{{/if}}
 <ul>
 {{#each user.posts}}
   <li>
     <h5><a href="/posts/{{this._id}}">{{this.title}}</a></h5>
     <p>{{this.body}}</p><br />
     <a href="/posts/{{this._id}}/comments">See Comments</a><br />
+    {{#if isMatch}}
     <a href="/posts/{{this._id}}/edit">Edit Post</a><br/>
     <form method="POST" action="/posts/{{this._id}}?_method=delete">
       <input type="submit" value="Delete Post">
     </form>
+    {{/if}}
   </li>
-  {{/each}}
+{{/each}}
 </ul>
+{{#if isMatch}}
 <h3>Your Comments:</h3> <br />
+{{else}}
+<h3>{{user.userName}}'s Comments</h3> <br />
+{{/if}}
 <ul>
 {{#each user.comments}}
   <li>

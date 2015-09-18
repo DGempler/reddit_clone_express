@@ -9,7 +9,7 @@
     <p>{{this.body}}</p><br />
     {{#if this.user.userName}}
     {{#unless user.isUsers}}
-    <p>Submitted by <a href="/users/{{this.user}}">{{this.user.userName}}</a></p>
+    <p>Submitted by <a href="/users/{{this.user._id}}">{{this.user.userName}}</a></p>
     {{/unless}}
     {{else}}
     <p>Original poster's user account has been deleted</p>
