@@ -7,7 +7,13 @@
   <li>
     <h5><a href="/posts/{{this._id}}">{{this.title}}</a></h5>
     <p>{{this.body}}</p><br />
+    {{#if this.user.userName}}
+    {{#unless user.isUsers}}
     <p>Submitted by <a href="/users/{{this.user}}">{{this.user.userName}}</a></p>
+    {{/unless}}
+    {{else}}
+    <p>Original poster's user account has been deleted</p>
+    {{/if}}
     <a href="/posts/{{this._id}}/comments">See Comments</a>
   </li>
   {{/each}}

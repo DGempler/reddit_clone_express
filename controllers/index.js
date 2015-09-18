@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res){
-  db.Post.find({}, function(err, posts) {
+  db.Post.find({}).populate('user').exec(function(err, posts) {
     if (err) throw err;
     res.render('index', {posts: posts, localsUser: res.locals.user});
   });
