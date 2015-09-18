@@ -4,7 +4,9 @@
     <h5>{{post.title}}</h5>
     <p>{{post.body}}</p><br />
     {{#if post.user}}
+    {{#unless isUsers}}
     <a href="/users/{{post.user._id}}">{{post.user.userName}}</a>
+    {{/unless}}
     {{else}}
     <p>Original poster's user account has been deleted</p>
     {{/if}}

@@ -104,7 +104,7 @@ app.delete('/users/:id', function(req, res){
       throw err;
     } else {
       req.logout();
-      res.redirect('/users');
+      res.redirect('/');
     }
   });
 });
